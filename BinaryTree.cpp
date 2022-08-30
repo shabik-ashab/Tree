@@ -20,6 +20,7 @@ void spacePrint(int level){
     }
 }
 
+// preOrder print tree
 void printTree(treeNode* root, int level){
     // if tree is empty
     if(root == NULL) return;
@@ -52,6 +53,15 @@ void inOrder(treeNode* root, string &chk){
 
     inOrder(root->leftChild,chk);
     chk += to_string(root->data);
+    inOrder(root->rightChild,chk);
+}
+
+void preOrder(treeNode* root, string &chk){
+
+    if(root == NULL) return;
+
+    chk += to_string(root->data);
+    inOrder(root->leftChild,chk);
     inOrder(root->rightChild,chk);
 }
 
