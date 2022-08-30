@@ -61,8 +61,17 @@ void preOrder(treeNode* root, string &chk){
     if(root == NULL) return;
 
     chk += to_string(root->data);
-    inOrder(root->leftChild,chk);
-    inOrder(root->rightChild,chk);
+    preOrder(root->leftChild,chk);
+    preOrder(root->rightChild,chk);
+}
+
+void postOrder(treeNode* root, string &chk){
+
+    if(root == NULL) return;
+
+    postOrder(root->leftChild,chk);
+    postOrder(root->rightChild,chk);
+    chk += to_string(root->data);
 }
 
 int main()
