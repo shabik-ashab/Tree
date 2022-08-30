@@ -46,6 +46,14 @@ void printTree(treeNode* root, int level){
     }        
 }
 
+void inOrder(treeNode* root, string &chk){
+
+    if(root == NULL) return;
+
+    inOrder(root->leftChild,chk);
+    chk += to_string(root->data);
+    inOrder(root->rightChild,chk);
+}
 
 int main()
 {
@@ -80,6 +88,11 @@ int main()
     }  
 
     printTree(allNodes[0], 0);
+
+    string inOrderTraversal = "";
+    inOrder(allNodes[0], inOrderTraversal);
+
+    cout<<"Inorder Traversal: "<<inOrderTraversal<<endl;
 
     return 0;
 }
