@@ -47,6 +47,7 @@ void printTree(treeNode* root, int level){
     }        
 }
 
+// left -> root -> right 
 void inOrder(treeNode* root, string &chk){
 
     if(root == NULL) return;
@@ -56,6 +57,7 @@ void inOrder(treeNode* root, string &chk){
     inOrder(root->rightChild,chk);
 }
 
+// root -> left -> right
 void preOrder(treeNode* root, string &chk){
 
     if(root == NULL) return;
@@ -73,6 +75,42 @@ void postOrder(treeNode* root, string &chk){
     postOrder(root->rightChild,chk);
     chk += to_string(root->data);
 }
+
+// level order traversal
+void levelOrder(treeNode* root, string &chk){
+    if(root == NULL) return;
+
+    queue<treeNode*> q;
+    q.push(root);
+    q.push(NULL);
+
+    while(!q.empty()){
+        treeNode* chkNode = q.front();
+        q.pop();
+        if(chkNode != NULL){
+            chk += to_string(chkNode->data);
+
+            if(chkNode->leftChild != NULL){
+                q.push(chkNode->leftChild);
+            }
+            if(chkNode->rightChild != NULL){
+                q.push(chkNode->rightChild);
+            }
+        }else{
+            if(!q.empty()) q.push(NULL);
+        }
+    }
+}
+
+// Construct a Binary Tree from Preorder and Inorder Traversal
+// if pre order and post order is given we can draw our tree
+
+//  Construct a Binary Tree from Postorder and Inorder Traversal
+
+// Construct a Binary Tree from Preorder and Postorder Traversal
+// we need a full binary tree to construct binary Tree from Preorder and Postorder Traversal
+
+
 
 int main()
 {
@@ -106,12 +144,22 @@ int main()
         }
     }  
 
-    printTree(allNodes[0], 0);
+    // printTree(allNodes[0], 0);
 
     string inOrderTraversal = "";
-    inOrder(allNodes[0], inOrderTraversal);
+    string preOrderTraversal = "";
+    string postOrderTraversal = "";
+    string levelOrderTraversal = "";
 
-    cout<<"Inorder Traversal: "<<inOrderTraversal<<endl;
+    inOrder(allNodes[0], inOrderTraversal);
+    preOrder(allNodes[0], preOrderTraversal);
+    postOrder(allNodes[0], postOrderTraversal);
+    levelOrder(allNodes[0], levelOrderTraversal);
+
+    // cout<<"Inorder Traversal: "<<inOrderTraversal<<endl;
+    // cout<<"PreOrderTraversal Traversal: "<<preOrderTraversal<<endl;
+    // cout<<"PostOrderTraversal Traversal: "<<postOrderTraversal<<endl;
+     cout<<"levelOrderTraversal Traversal: "<<levelOrderTraversal<<endl;
 
     return 0;
 }
