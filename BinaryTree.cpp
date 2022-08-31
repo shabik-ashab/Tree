@@ -77,17 +77,22 @@ void postOrder(treeNode* root, string &chk){
 }
 
 // level order traversal
-void levelOrder(treeNode* root, string &chk){
-    if(root == NULL) return;
+int levelOrder(treeNode* root, string &chk, int k){
+    if(root == NULL) return -1;
 
+    int level = 0;
     queue<treeNode*> q;
     q.push(root);
     q.push(NULL);
+    int max = INT_MIN;
 
     while(!q.empty()){
         treeNode* chkNode = q.front();
         q.pop();
         if(chkNode != NULL){
+            if(level == k){
+                if(max < chkNode->data) max = chkNode->data;
+            }
             chk += to_string(chkNode->data);
 
             if(chkNode->leftChild != NULL){
@@ -97,9 +102,14 @@ void levelOrder(treeNode* root, string &chk){
                 q.push(chkNode->rightChild);
             }
         }else{
-            if(!q.empty()) q.push(NULL);
+            if(!q.empty()){
+                q.push(NULL);
+                level++;
+            } 
         }
     }
+
+    return max;
 }
 
 // Construct a Binary Tree from Preorder and Inorder Traversal
@@ -151,15 +161,18 @@ int main()
     string postOrderTraversal = "";
     string levelOrderTraversal = "";
 
-    inOrder(allNodes[0], inOrderTraversal);
-    preOrder(allNodes[0], preOrderTraversal);
-    postOrder(allNodes[0], postOrderTraversal);
-    levelOrder(allNodes[0], levelOrderTraversal);
+    int searchVal = 2;
+
+    // inOrder(allNodes[0], inOrderTraversal);
+    // preOrder(allNodes[0], preOrderTraversal);
+    // postOrder(allNodes[0], postOrderTraversal);
+    int maxValAtK = levelOrder(allNodes[0], levelOrderTraversal, searchVal);
 
     // cout<<"Inorder Traversal: "<<inOrderTraversal<<endl;
     // cout<<"PreOrderTraversal Traversal: "<<preOrderTraversal<<endl;
     // cout<<"PostOrderTraversal Traversal: "<<postOrderTraversal<<endl;
      cout<<"levelOrderTraversal Traversal: "<<levelOrderTraversal<<endl;
+     cout<<"max value at level 2: "<< maxValAtK<<endl;
 
     return 0;
 }
