@@ -176,6 +176,7 @@ treeNode *buildTreePreIn(int preOrder[], int inOrder[], int start, int end)
 // Construct a Binary Tree from Preorder and Postorder Traversal
 // we need a full binary tree to construct binary Tree from Preorder and Postorder Traversal
 
+
 int main()
 {
 
@@ -198,7 +199,7 @@ int main()
     preOrderTraversal(root, chkPre);
 
     cout << "PreOrderTraversal Traversal: " << chkPre << endl;
-
+ 
     return 0;
 }
 

@@ -148,6 +148,64 @@ int levelOrder(treeNode *root, string &chk, int k)
 // Construct a Binary Tree from Preorder and Postorder Traversal
 // we need a full binary tree to construct binary Tree from Preorder and Postorder Traversal
 
+
+// traversing boundary of tree
+// we can make 4 different step 
+//s1: lb -> non leaves
+//s2: lb -> leaves
+//s3: rb -> leaves
+//s4: rb -> non leaves
+
+void printLeaves(treeNode* root){
+    if(root == NULL) return;
+    if(root->leftChild == NULL && root->rightChild == NULL){
+         cout<<root->data<<" ";
+         return;
+    }
+
+    printLeaves(root->leftChild);
+    printLeaves(root->rightChild);
+}
+
+void printLeftNonLeaves(treeNode* root){
+    if(root == NULL) return;
+
+    if(root->leftChild != NULL){
+        cout<<root->data<<" ";
+        printLeftNonLeaves(root->leftChild);
+    }else if(root->rightChild != NULL){
+        cout<< root->data<<" ";
+        printLeftNonLeaves(root->rightChild);
+    }
+
+}
+
+void printRightNonLeaves(treeNode* root){
+    if(root == NULL) return;
+
+     if(root->rightChild != NULL){
+        cout<<root->data<<" ";
+        printRightNonLeaves(root->rightChild);
+    }else if(root->leftChild != NULL){
+        cout<< root->data<<" ";
+        printRightNonLeaves(root->leftChild);
+    }
+}
+
+void boundery(treeNode* root){
+    if(root == NULL) return;
+    cout<< root->data<<" ";
+
+    //lb non-leaves
+    printLeftNonLeaves(root->leftChild);
+    //lb leaves
+    printLeaves(root->leftChild);
+    //rb leaves
+    printLeaves(root->rightChild);
+    //rb non-leaves
+    printRightNonLeaves(root->rightChild);
+}
+
 int main()
 {
 
@@ -194,16 +252,19 @@ int main()
 
     int searchVal = 2;
 
-    inOrder(allNodes[0], inOrderTraversal);
-    preOrderTraversal(allNodes[0], preOrderTraversal);
-    postOrder(allNodes[0], postOrderTraversal);
-    int maxValAtK = levelOrder(allNodes[0], levelOrderTraversal, searchVal);
+    // inOrder(allNodes[0], inOrderTraversal);
+    // preOrderTraversal(allNodes[0], preOrderTraversal);
+    // postOrder(allNodes[0], postOrderTraversal);
+    // int maxValAtK = levelOrder(allNodes[0], levelOrderTraversal, searchVal);
 
-    cout << "Inorder Traversal: " << inOrderTraversal << endl;
-    cout << "PreOrderTraversal Traversal: " << preOrderTraversal << endl;
-    cout << "PostOrderTraversal Traversal: " << postOrderTraversal << endl;
-    cout << "levelOrderTraversal Traversal: " << levelOrderTraversal << endl;
+    // cout << "Inorder Traversal: " << inOrderTraversal << endl;
+    // cout << "PreOrderTraversal Traversal: " << preOrderTraversal << endl;
+    // cout << "PostOrderTraversal Traversal: " << postOrderTraversal << endl;
+    // cout << "levelOrderTraversal Traversal: " << levelOrderTraversal << endl;
     //  cout<<"max value at level 2: "<< maxValAtK<<endl;
+
+
+    boundery(allNodes[0]);
 
     return 0;
 }
