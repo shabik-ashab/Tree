@@ -66,7 +66,7 @@ void inOrder(treeNode *root, string &chk)
         return;
 
     inOrder(root->leftChild, chk);
-    chk += to_string(root->data);
+    chk += (to_string(root->data)+" ");
     inOrder(root->rightChild, chk);
 }
 
@@ -207,8 +207,8 @@ void boundery(treeNode* root){
 }
 
 treeNode* insertionBst(treeNode* root, int val){
-
     treeNode* newNode = new treeNode(val);
+
     if(root == NULL){
         root = newNode;
         return root;
@@ -222,6 +222,29 @@ treeNode* insertionBst(treeNode* root, int val){
     else if(val > root->data){
         root->rightChild = insertionBst(root->rightChild, val);
     }
+
+    return root;
+}
+
+treeNode* searchBst(treeNode* root, int val){
+    if(root == NULL){
+        return NULL;
+    }
+
+    if(root->data == val){
+        cout<<root->data;
+        return root;
+    }
+    
+    else if(val < root->data){
+        cout<<root->data<<" -> ";
+        searchBst(root->leftChild, val);
+    }
+    
+    else if(val > root->data){
+        cout<<root->data<<" -> ";
+        searchBst(root->rightChild, val);
+    }
 }
 
 int main()
@@ -234,7 +257,18 @@ int main()
     for(int i=0;i<n;i++){
         int v;
         cin>>v;
-        insertionBst(root,v);
+        root = insertionBst(root,v);
+    }
+
+    string inOrderT = "";
+    inOrder(root, inOrderT);
+    cout<<"inOrder:"<<inOrderT<<endl;
+
+    int key;
+    cin>>key;
+
+    if(searchBst(root, key) == NULL){
+        cout<<"value does not exist"<<endl;
     }
 
     return 0;
