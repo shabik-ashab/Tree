@@ -206,79 +206,15 @@ void boundery(treeNode* root){
     printRightNonLeaves(root->rightChild);
 }
 
+
 int main()
 {
 
-    int n;
-    cin >> n;
-
-    treeNode *allNodes[n];
-
-    for (int i = 0; i < n; i++)
-    {
-        allNodes[i] = new treeNode(-1);
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        int val, left, right;
-        cin >> val >> left >> right;
-
-        allNodes[i]->data = val;
-
-        if (left > n - 1 || right > n - 1)
-        {
-            cout << "Invalid index" << endl;
-            break;
-        }
-
-        if (left != -1)
-        {
-            allNodes[i]->leftChild = allNodes[left];
-        }
-
-        if (right != -1)
-        {
-            allNodes[i]->rightChild = allNodes[right];
-        }
-    }
-
-    // printTree(allNodes[0], 0);
-
-    string inOrderTraversal = "";
-    string preOrderTraversal = "";
-    string postOrderTraversal = "";
-    string levelOrderTraversal = "";
-
-    int searchVal = 2;
-
-    // inOrder(allNodes[0], inOrderTraversal);
-    // preOrderTraversal(allNodes[0], preOrderTraversal);
-    postOrder(allNodes[0], postOrderTraversal);
-    // int maxValAtK = levelOrder(allNodes[0], levelOrderTraversal, searchVal);
-
-    // cout << "Inorder Traversal: " << inOrderTraversal << endl;
-    // cout << "PreOrderTraversal Traversal: " << preOrderTraversal << endl;
-    cout << "PostOrderTraversal Traversal: " << postOrderTraversal << endl;
-    // cout << "levelOrderTraversal Traversal: " << levelOrderTraversal << endl;
-    //  cout<<"max value at level 2: "<< maxValAtK<<endl;
-
-
-    // boundery(allNodes[0]);
+   
 
     return 0;
 }
 
 /*
-9
-0 1 2
-1 3 4
-2 5 6
-3 -1 -1
-4 -1 -1
-5 7 8
-6 -1 -1
-7 -1 -1
-8 -1 -1
 
 */
