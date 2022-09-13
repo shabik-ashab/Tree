@@ -206,15 +206,42 @@ void boundery(treeNode* root){
     printRightNonLeaves(root->rightChild);
 }
 
+treeNode* insertionBst(treeNode* root, int val){
+
+    treeNode* newNode = new treeNode(val);
+    if(root == NULL){
+        root = newNode;
+        return root;
+    }
+
+    // val < root -> data
+    if(val < root->data){
+        root->leftChild = insertionBst(root->leftChild, val);
+    }
+    // val > root->data
+    else if(val > root->data){
+        root->rightChild = insertionBst(root->rightChild, val);
+    }
+}
 
 int main()
 {
 
-   
+    int n;
+    cin>>n;
+
+    treeNode* root = NULL;
+    for(int i=0;i<n;i++){
+        int v;
+        cin>>v;
+        insertionBst(root,v);
+    }
 
     return 0;
 }
 
 /*
+9
+11 5 9 43 34 1 2 7 21
 
 */
