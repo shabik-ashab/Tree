@@ -316,6 +316,35 @@ while(curLevel != empty){
 }
 */
 
+void zigzag(treeNode* root){
+    stack<treeNode*> curLevel;
+    stack<treeNode*> nextLevel;
+
+    bool leftToR = true;
+
+    curLevel.push(root);
+    while(!curLevel.empty()){
+        treeNode* x = curLevel.top();
+        curLevel.pop();
+
+        cout<<x->data<<" ";
+
+        if(leftToR){
+            if(x->leftChild != NULL) nextLevel.push(x->leftChild);
+            if(x->rightChild != NULL) nextLevel.push(x->rightChild);
+        }else{
+            if(x->rightChild != NULL) nextLevel.push(x->rightChild);
+            if(x->leftChild != NULL) nextLevel.push(x->leftChild);
+        }
+
+        if(curLevel.empty()){
+            leftToR = !leftToR;
+            swap(curLevel,nextLevel);
+        }
+        
+    }
+}
+
 
 int main()
 {
@@ -347,15 +376,15 @@ int main()
     // inOrder(root, inOrderA);
     // cout<<"inOrder:"<<inOrderA<<endl;
 
-
-    // 
+    zigzag(root);
+    
 
     return 0;
 }
 
 /*
-9
-11 5 9 43 34 1 2 7 21
+10
+11 5 9 43 34 1 2 7 8 21
 */
 
 // construct complete binary tree from array
