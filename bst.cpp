@@ -206,7 +206,7 @@ void boundery(treeNode* root){
     printRightNonLeaves(root->rightChild);
 }
 
-treeNode* insertionBst(treeNode* root, int val){
+treeNode* insertionBst(treeNode* root,int val){
     treeNode* newNode = new treeNode(val);
 
     if(root == NULL){
@@ -226,7 +226,7 @@ treeNode* insertionBst(treeNode* root, int val){
     return root;
 }
 
-treeNode* searchBst(treeNode* root, int val){
+treeNode* searchBst(treeNode* root,int val){
     if(root == NULL){
         return NULL;
     }
@@ -247,6 +247,76 @@ treeNode* searchBst(treeNode* root, int val){
     }
 }
 
+treeNode* inorderSucc(treeNode* root){
+    treeNode* curr = root;
+
+    while(curr->leftChild != NULL){
+        curr = curr->leftChild;
+    }
+    return curr;
+}
+
+treeNode* deletionBst(treeNode* root,int val){
+    if(val < root->data){
+        root->leftChild = deletionBst(root->leftChild, val);
+    }
+    else if(val > root->data){
+        root->rightChild = deletionBst(root->rightChild, val);
+    }else{
+        if(root->leftChild == NULL){
+            treeNode* temp = root->rightChild;
+            free(root);
+            return temp;
+        }
+        else if(root->rightChild == NULL){
+            treeNode* temp = root->leftChild;
+            free(root);
+            return temp;
+        }
+        else{
+            treeNode* temp = inorderSucc(root->rightChild);
+            root->data = temp->data;
+            root->rightChild = deletionBst(root->rightChild, temp->data);
+        }
+
+        return root;
+    }
+}
+
+// zigzag traversal
+// leftToRight = true
+// we need two stack 
+// curLevel and nextLevel
+/*
+we will set node to curlevel
+if(ltor == true){
+     insert to nextLevel
+     toggle ltor
+     toggle stack(means curLevel will become next level and vise versa)
+    }
+else{
+    insert to nextLevel from right to left
+    toggle ltor
+    toggle stack(means curLevel will become next level and vise versa)
+}
+*/
+
+// psudocode
+/*
+while(curLevel != empty){
+   x = pop() and add to output
+   if(ltor == true){
+    // we will push to nextLevel
+    push(x.left)
+    push(x.right)
+   }else{
+    push(x.right)
+    push(x.left)
+   }
+}
+*/
+
+
 int main()
 {
 
@@ -264,12 +334,21 @@ int main()
     inOrder(root, inOrderT);
     cout<<"inOrder:"<<inOrderT<<endl;
 
-    int key;
-    cin>>key;
+    // int key;
+    // cin>>key;
 
-    if(searchBst(root, key) == NULL){
-        cout<<"value does not exist"<<endl;
-    }
+    // if(searchBst(root, key) == NULL){
+    //     cout<<"value does not exist"<<endl;
+    // }
+
+    // root = deletionBst(root, key);
+
+    // string inOrderA = "";
+    // inOrder(root, inOrderA);
+    // cout<<"inOrder:"<<inOrderA<<endl;
+
+
+    // 
 
     return 0;
 }
@@ -277,5 +356,8 @@ int main()
 /*
 9
 11 5 9 43 34 1 2 7 21
-
 */
+
+// construct complete binary tree from array
+// ith lc -> 2*i+1
+// ith rc -> 2*1+2
