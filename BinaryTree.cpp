@@ -71,15 +71,14 @@ void inOrder(treeNode *root, string &chk)
 }
 
 // root -> left -> right
-void preOrderTraversal(treeNode *root, string &chk)
+void preOrder(treeNode *root, string &chk)
 {
-
     if (root == NULL)
         return;
 
     chk += to_string(root->data);
-    preOrderTraversal(root->leftChild, chk);
-    preOrderTraversal(root->rightChild, chk);
+    preOrder(root->leftChild, chk);
+    preOrder(root->rightChild, chk);
 }
 
 void postOrder(treeNode *root, string &chk)
@@ -206,42 +205,77 @@ void boundery(treeNode* root){
     printRightNonLeaves(root->rightChild);
 }
 
+void verticalOrder(treeNode* root,int d,map<int,vector<int>> &m){
+    if(root == NULL) return;
+    
+    m[d].push_back(root->data);
+    verticalOrder(root->leftChild,d-1,m);
+    verticalOrder(root->rightChild,d+1,m);
+}
+
+
 int main()
 {
 
-    int n;
-    cin >> n;
+    // int n;
+    // cin >> n;
 
-    treeNode *allNodes[n];
+    // treeNode *allNodes[n];
 
-    for (int i = 0; i < n; i++)
-    {
-        allNodes[i] = new treeNode(-1);
+    // for (int i = 0; i < n; i++)
+    // {
+    //     allNodes[i] = new treeNode(-1);
+    // }
+
+    // for (int i = 0; i < n; i++)
+    // {
+    //     int val, left, right;
+    //     cin >> val >> left >> right;
+
+    //     allNodes[i]->data = val;
+
+    //     if (left > n - 1 || right > n - 1)
+    //     {
+    //         cout << "Invalid index" << endl;
+    //         break;
+    //     }
+
+    //     if (left != -1)
+    //     {
+    //         allNodes[i]->leftChild = allNodes[left];
+    //     }
+
+    //     if (right != -1)
+    //     {
+    //         allNodes[i]->rightChild = allNodes[right];
+    //     }
+    // }
+
+    int a;
+    cin>>a;
+    treeNode* root = new treeNode(a);
+    queue<treeNode *> q;
+
+    q.push(root);
+
+    while(!q.empty()){
+        treeNode* presentRoot = q.front();
+        q.pop();
+        int x,y;
+        cin>>x>>y;
+        treeNode* n1 = NULL;
+        treeNode* n2 = NULL;
+
+        if(x!= -1) n1 = new treeNode(x);
+        if(y!= -1) n2 = new treeNode(y);
+
+        presentRoot->leftChild = n1;
+        presentRoot->rightChild = n2;
+
+        if(n1 != NULL) q.push(n1);
+        if(n2 != NULL) q.push(n2);
     }
 
-    for (int i = 0; i < n; i++)
-    {
-        int val, left, right;
-        cin >> val >> left >> right;
-
-        allNodes[i]->data = val;
-
-        if (left > n - 1 || right > n - 1)
-        {
-            cout << "Invalid index" << endl;
-            break;
-        }
-
-        if (left != -1)
-        {
-            allNodes[i]->leftChild = allNodes[left];
-        }
-
-        if (right != -1)
-        {
-            allNodes[i]->rightChild = allNodes[right];
-        }
-    }
 
     // printTree(allNodes[0], 0);
 
@@ -252,19 +286,36 @@ int main()
 
     int searchVal = 2;
 
-    // inOrder(allNodes[0], inOrderTraversal);
-    // preOrderTraversal(allNodes[0], preOrderTraversal);
-    postOrder(allNodes[0], postOrderTraversal);
-    // int maxValAtK = levelOrder(allNodes[0], levelOrderTraversal, searchVal);
+    // inOrder(root, inOrderTraversal);
+    // preOrder(root, preOrderTraversal);
+    // postOrder(root, postOrderTraversal);
+    // int maxValAtK = levelOrder(root, levelOrderTraversal, searchVal);
 
     // cout << "Inorder Traversal: " << inOrderTraversal << endl;
     // cout << "PreOrderTraversal Traversal: " << preOrderTraversal << endl;
-    cout << "PostOrderTraversal Traversal: " << postOrderTraversal << endl;
+    // cout << "PostOrderTraversal Traversal: " << postOrderTraversal << endl;
     // cout << "levelOrderTraversal Traversal: " << levelOrderTraversal << endl;
     //  cout<<"max value at level 2: "<< maxValAtK<<endl;
 
 
     // boundery(allNodes[0]);
+
+
+    map<int,vector<int>> m;
+
+    verticalOrder(root,0,m);
+
+    // map<int,vector<int>> :: iterator it;
+
+    // for(it = m.begin())
+
+    for(auto e:m){
+        for(int j=0;j<(e.second).size();j++){
+            cout<<(e.second)[j]<<" ";
+        }
+
+        cout<<endl;
+    }
 
     return 0;
 }
@@ -280,5 +331,14 @@ int main()
 6 -1 -1
 7 -1 -1
 8 -1 -1
+
+*/
+
+/*
+15
+11 26
+8 12 20 30
+6 9 -1 14 -1 -1 -1 35
+-1 -1 -1 -1 -1 -1 -1 -1
 
 */

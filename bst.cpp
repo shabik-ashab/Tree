@@ -142,12 +142,9 @@ int levelOrder(treeNode *root, string &chk, int k)
 
 // Construct a Binary Tree from Preorder and Inorder Traversal
 // if pre order and post order is given we can draw our tree
-
 //  Construct a Binary Tree from Postorder and Inorder Traversal
-
 // Construct a Binary Tree from Preorder and Postorder Traversal
 // we need a full binary tree to construct binary Tree from Preorder and Postorder Traversal
-
 
 // traversing boundary of tree 
 // we can make 4 different step 
@@ -349,19 +346,50 @@ void zigzag(treeNode* root){
 int main()
 {
 
-    int n;
-    cin>>n;
+    // int n;
+    // cin>>n;
 
-    treeNode* root = NULL;
-    for(int i=0;i<n;i++){
-        int v;
-        cin>>v;
-        root = insertionBst(root,v);
+    // treeNode* root = NULL;
+    // for(int i=0;i<n;i++){
+    //     int v;
+    //     cin>>v;
+    //     root = insertionBst(root,v);
+    // }
+
+    int a;
+    cin>>a;
+    treeNode* root = new treeNode(a);
+    queue<treeNode *> q;
+
+    q.push(root);
+
+    while(!q.empty()){
+        treeNode* presentRoot = q.front();
+        q.pop();
+        int x,y;
+        cin>>x>>y;
+        treeNode* n1 = NULL;
+        treeNode* n2 = NULL;
+
+        if(x!= -1) n1 = new treeNode(x);
+        if(y!= -1) n2 = new treeNode(y);
+
+        presentRoot->leftChild = n1;
+        presentRoot->rightChild = n2;
+
+        if(n1 != NULL) q.push(n1);
+        if(n2 != NULL) q.push(n2);
     }
+
+    insertionBst(root,11);
 
     string inOrderT = "";
     inOrder(root, inOrderT);
     cout<<"inOrder:"<<inOrderT<<endl;
+
+    
+
+    printTree(root,0);
 
     // int key;
     // cin>>key;
@@ -376,7 +404,7 @@ int main()
     // inOrder(root, inOrderA);
     // cout<<"inOrder:"<<inOrderA<<endl;
 
-    zigzag(root);
+    // zigzag(root);
     
 
     return 0;
@@ -390,3 +418,4 @@ int main()
 // construct complete binary tree from array
 // ith lc -> 2*i+1
 // ith rc -> 2*1+2
+
